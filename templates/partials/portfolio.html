@@ -1,0 +1,30 @@
+<section id="portfolio" class="section" aria-labelledby="portfolio-title">
+  <div class="container">
+    <div class="section__heading"><h2 id="portfolio-title">My work</h2></div>
+    {# Kartu mengikuti list projects di app.py. #}
+    <div class="project-grid">
+      {% for project in data.projects %}{% set link = project.link | project_url %}
+      <article class="project reveal" id="{{ project.id }}">
+        <div class="project__visual">
+  {% if project.image %}
+  <img
+    class="project__image"
+    src="{{ url_for('static', filename=project.image) }}"
+    alt="Pratinjau proyek {{ project.title }}"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+  >
+  {% endif %}
+</div>
+        <p class="project__category">{{ project.category }}</p>
+        <h3>{{ project.title }}</h3><p class="project__description">{{ project.description }}</p>
+        <ul class="project__tech" aria-label="Teknologi">{% for tech in project.tech %}<li>{{ tech }}</li>{% endfor %}</ul>
+        {% if link %}<a class="project__link" href="{{ link }}" {% if not link.startswith('#') %}target="_blank" rel="noopener noreferrer"{% endif %}>Lihat detail ↗{% if not link.startswith('#') %} (tab baru){% endif %}</a>
+        {% else %}<p class="project__pending"></p>{% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

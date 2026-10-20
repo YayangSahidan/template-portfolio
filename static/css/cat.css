@@ -1,0 +1,110 @@
+/* Kolom kanan tetap dapat mengecil pada layar HP. */
+.about__bio-panel {
+  min-width: 0;
+}
+
+/* Jalur khusus di atas bio. */
+.cat-runner {
+  --cat-width: var(--space-9);
+  --cat-duration: 6s;
+  --cat-stride: .22s;
+
+  width: 100%;
+  height: var(--space-8);
+  overflow: hidden;
+  color: var(--color-ink);
+  pointer-events: none;
+}
+
+/* Lebar jalur dikurangi ukuran kucing agar tidak keluar kotak. */
+.cat-runner__travel {
+  width: calc(100% - var(--cat-width));
+  height: 100%;
+  animation: cat-travel var(--cat-duration) linear infinite;
+}
+
+.cat-runner__direction {
+  width: var(--cat-width);
+  height: 100%;
+  animation: cat-direction var(--cat-duration) steps(1, end) infinite;
+}
+
+.cat-runner__cat {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: cat-bounce var(--cat-stride) ease-in-out infinite alternate;
+}
+
+.cat-runner__eye {
+  fill: var(--color-gold);
+}
+
+.cat-runner__leg {
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: cat-stride var(--cat-stride) ease-in-out infinite alternate;
+}
+
+.cat-runner__leg--alternate {
+  animation-direction: alternate-reverse;
+}
+
+/* Bergerak ke kanan, lalu kembali ke kiri. */
+@keyframes cat-travel {
+  0%, 100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+/* Menghadap sesuai arah lari. */
+@keyframes cat-direction {
+  0%, 100% {
+    transform: scaleX(1);
+  }
+
+  50% {
+    transform: scaleX(-1);
+  }
+}
+
+/* Gerakan badan. */
+@keyframes cat-bounce {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(calc(-1 * var(--space-1)));
+  }
+}
+
+/* Gerakan kaki. */
+@keyframes cat-stride {
+  from {
+    transform: rotate(-25deg);
+  }
+
+  to {
+    transform: rotate(25deg);
+  }
+}
+
+@media (max-width: 760px) {
+  .cat-runner {
+    --cat-width: var(--space-8);
+    --cat-duration: 4s;
+
+    height: var(--space-7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), print {
+  .cat-runner {
+    display: none;
+  }
+}

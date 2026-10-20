@@ -1,0 +1,540 @@
+/* Bagian di bawah hero; tiap komponen memiliki nama kelas sendiri. */
+/* Latar batik khusus bagian About Me. */
+/* Pembungkus bagian About Me. */
+.about {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* Lapisan 1: motif batik. */
+.about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background: url("../images/batik_parang_yogyakarta.jpeg") center / cover no-repeat;
+
+  opacity: var(--about-pattern-opacity);
+  pointer-events: none;
+}
+
+/* Lapisan 2: kaca transparan dengan pantulan cahaya. */
+.about::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background: linear-gradient(120deg, var(--glass-shine) 0%, var(--about-glass-fill) 35%, var(--about-glass-fill) 70%, var(--glass-shine) 100%);
+
+  backdrop-filter: blur(var(--about-glass-blur));
+  -webkit-backdrop-filter: blur(var(--about-glass-blur));
+
+  border-block: var(--stroke) solid var(--glass-shine);
+
+  box-shadow: inset 0 var(--stroke-thick) var(--space-4) var(--glass-shine);
+}
+
+/* Lapisan 3: teks dan isi About Me. */
+.about > .container {
+  position: relative;
+  z-index: 2;
+}
+/* Desktop: identitas kiri, deskripsi kanan. */
+.about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.about__grid > * {
+  min-width: 0;
+}
+
+/* Teks lengkap tetap mencadangkan tinggi paragraf. */
+/* Teks lengkap mencadangkan tinggi kotak. */
+.about__bio {
+  display: grid;
+  margin: var(--space-0);
+  overflow-wrap: anywhere;
+}
+
+/* Kedua teks menempati posisi yang sama. */
+.about__bio-reserve,
+.about__bio-typed {
+  grid-area: 1 / 1;
+  min-width: 0;
+  white-space: normal;
+}
+
+/* Saat mengetik, teks cadangan tetap mengisi ruang. */
+.about__bio.is-typing .about__bio-reserve {
+  color: var(--color-transparent);
+}
+.about__identity {
+  border-left: var(--stroke-thick) solid var(--color-terracotta);
+  padding-left: var(--space-5);
+}
+.about__identity h3 {
+  margin-bottom: var(--space-3);
+}
+.about__box {
+  padding: var(--space-5);
+  background: var(--about-glass-fill);
+  border: var(--stroke) solid var(--color-border);
+  border-radius: var(--radius);
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+.stats__item {
+  position: relative;
+  padding: var(--space-5);
+  border: var(--stroke) solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.stats__item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--space-1);
+  background: var(--color-gold);
+}
+.stats__value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-stat);
+  font-weight: var(--weight-medium);
+}
+.stats__label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  margin-block: var(--space-2);
+}
+.stats__item small {
+  display: block;
+  color: var(--color-text-muted);
+}
+.infografis__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-8);
+}
+.infografis__columns h3 {
+  margin-bottom: var(--space-5);
+}
+.skills {
+  padding: var(--space-0);
+  list-style: none;
+}
+.skill + .skill {
+  margin-top: var(--space-5);
+}
+.skill__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+.skill__heading span {
+  color: var(--color-text-muted);
+}
+.skill__track {
+  margin-top: var(--space-2);
+  height: var(--space-3);
+  overflow: hidden;
+  border: var(--stroke) solid var(--color-text-muted);
+  border-radius: var(--radius-pill);
+  background: repeating-linear-gradient(90deg, var(--color-transparent) 0 calc(var(--space-6) - var(--stroke)), var(--color-border) calc(var(--space-6) - var(--stroke)) var(--space-6));
+}
+.skill__fill {
+  display: block;
+  height: 100%;
+  background: repeating-linear-gradient(90deg, var(--color-terracotta) 0 calc(var(--space-6) - var(--stroke-thick)), var(--color-bg) calc(var(--space-6) - var(--stroke-thick)) var(--space-6));
+  transform-origin: left;
+  transition: transform var(--reveal-duration) ease;
+}
+.skill.is-ready .skill__fill {
+  transform: scaleX(0);
+}
+.skill.is-visible .skill__fill {
+  transform: scaleX(1);
+}
+.skills__note {
+  color: var(--color-text-muted);
+  margin-top: var(--space-5);
+  font-size: var(--text-sm);
+}
+.timeline {
+  list-style: none;
+  padding-left: var(--space-5);
+  border-left: var(--stroke-thick) solid var(--color-gold);
+}
+.timeline__item {
+  position: relative;
+  padding-bottom: var(--space-6);
+}
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  width: var(--space-3);
+  height: var(--space-3);
+  top: var(--space-1);
+  left: calc(-1 * var(--space-5) - var(--space-2) + var(--stroke));
+  transform: rotate(45deg);
+  background: var(--color-terracotta);
+  border: var(--stroke-thick) solid var(--color-bg);
+}
+.timeline__year {
+  color: var(--color-terracotta);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+.timeline__item h4 {
+  margin-block: var(--space-2);
+}
+.timeline__institution,
+.timeline__item > p:last-child {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+/* Kartu kaca My Work. */
+.project {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--space-4);
+  min-width: 0;
+  padding: var(--space-5);
+
+  color: var(--color-ink);
+  background: linear-gradient(135deg, var(--project-glass-highlight), var(--project-glass));
+
+  border: var(--stroke) solid var(--project-glass-border);
+  border-radius: var(--radius);
+
+  -webkit-backdrop-filter: blur(var(--project-glass-blur));
+  backdrop-filter: blur(var(--project-glass-blur));
+
+  box-shadow:
+    0 var(--space-2) var(--space-5) var(--project-glass-shadow),
+    inset 0 var(--stroke) 0 var(--project-glass-border);
+
+  /* Translate terpisah dari transform animasi reveal. */
+  translate: 0 0;
+
+  transition:
+    translate var(--transition),
+    box-shadow var(--transition),
+    opacity var(--reveal-duration),
+    transform var(--reveal-duration);
+}
+
+/* Pantulan cahaya melewati permukaan kartu. */
+.project::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background: linear-gradient(110deg, var(--color-transparent) 25%, var(--project-glass-highlight) 50%, var(--color-transparent) 75%);
+
+  transform: translateX(-125%);
+  transition: transform var(--project-shine-duration) ease;
+}
+
+/* Isi tetap berada di atas pantulan. */
+.project > * {
+  position: relative;
+  z-index: 1;
+}
+
+.project h3,
+.project__description {
+  overflow-wrap: anywhere;
+}
+
+/* Fokus keyboard saat tautan dalam kartu dipilih. */
+.project:focus-within {
+  box-shadow:
+    0 var(--space-3) var(--space-6) var(--project-glass-shadow-hover),
+    inset 0 0 0 var(--stroke-thick) var(--project-glass-border);
+}
+
+/* Hover khusus perangkat dengan mouse. */
+@media (hover: hover) and (pointer: fine) {
+  .project:hover {
+    translate: 0 calc(-1 * var(--space-2));
+
+    box-shadow:
+      0 var(--space-4) var(--space-7) var(--project-glass-shadow-hover),
+      inset 0 var(--stroke) 0 var(--project-glass-border);
+  }
+
+  .project:hover::before {
+    transform: translateX(125%);
+  }
+}
+
+/* Hormati pengaturan pengguna yang mengurangi gerakan. */
+@media (prefers-reduced-motion: reduce) {
+  .project:hover {
+    translate: 0 0;
+  }
+
+  .project::before {
+    display: none;
+  }
+}
+/* Panel bagian atas ikut transparan. */
+.project__visual {
+  width: 100%;
+  min-height: var(--space-9);
+  padding: var(--space-5);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+
+  background: var(--project-glass);
+  border: var(--stroke) solid var(--project-glass-border);
+  border-radius: var(--radius);
+}
+
+/* Kotak foto mengikuti lebar kartu. */
+.project__visual {
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--project-image-ratio);
+  min-height: 0;
+  padding: var(--space-0);
+  flex-shrink: 0;
+  overflow: hidden;
+
+  background: var(--project-glass);
+  border: var(--stroke) solid var(--project-glass-border);
+  border-radius: var(--radius);
+}
+
+/* Foto memenuhi kotak tanpa menjadi gepeng. */
+.project__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+.project__category {
+  font-size: var(--text-xs);
+  color: var(--color-terracotta);
+}
+.project__description {
+  color: var(--color-white);
+  margin-top: var(--space-0);
+}
+.project__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-0);
+  list-style: none;
+  margin-top: auto;
+}
+.project__tech li {
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-2);
+  border: var(--stroke) solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+.project__pending {
+  color: var(--color-terracotta);
+  font-size: var(--text-xs);
+}
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-7);
+}
+.contact__info h2 {
+  margin-block: var(--space-3) var(--space-5);
+}
+.contact__info > p {
+  color: var(--color-text-muted);
+}
+.contact__info dl {
+  margin-block: var(--space-5);
+}
+.contact__info dt {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+.contact__info dd {
+  margin-bottom: var(--space-4);
+  overflow-wrap: anywhere;
+}
+/* Background foto pada kotak formulir. */
+.contact__form {
+  padding: var(--space-5);
+  border: var(--stroke) solid var(--color-border);
+  border-radius: var(--radius);
+
+  background-color: var(--color-surface);
+
+  background-image:
+    linear-gradient(
+      var(--contact-form-overlay),
+      var(--contact-form-overlay)
+    ),
+    var(--contact-form-image);
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.contact__form label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+.contact__form input,
+.contact__form textarea {
+  width: 100%;
+  margin-bottom: var(--space-4);
+  padding: var(--space-3);
+  border: var(--stroke) solid var(--color-text-muted);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+.contact__form textarea {
+  resize: vertical;
+  min-height: var(--space-9);
+}
+.contact__note,
+.contact__status {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+.contact__status {
+  margin-top: var(--space-4);
+}
+.footer {
+  border-top: var(--stroke) solid var(--color-border);
+  padding-block: var(--space-5);
+  background: var(--color-bg);
+}
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+/* Background seluruh bagian My Work. */
+#portfolio {
+  background: var(--work-background);
+}
+
+/* Judul terang agar terbaca pada background gelap. */
+#portfolio .section__heading {
+  color: var(--work-heading);
+}
+/* Judul kontak sedang dan menyesuaikan layar. */
+#contact-title {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+/* Foto memenuhi seluruh background kontak. */
+#contact {
+  background-color: var(--color-bg);
+
+  background-image:
+    linear-gradient(
+      var(--contact-background-overlay),
+      var(--contact-background-overlay)
+    ),
+    var(--contact-background-image);
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* Tablet: statistik dan proyek menjadi dua kolom. */
+@media (max-width: 1000px) {
+  .stats,
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* HP: konten tersusun satu kolom. */
+@media (max-width: 760px) {
+  .about__grid,
+  .infografis__columns,
+  .project-grid,
+  .contact__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about__grid {
+    gap: var(--space-5);
+  }
+
+  .footer__inner {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+/* HP kecil: statistik menjadi satu kolom. */
+@media (max-width: 400px) {
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill.is-ready .skill__fill {
+    transform: none;
+  }
+}
+
+@media print {
+  .project,
+  .stats__item {
+    break-inside: avoid;
+  }
+
+  .contact__form {
+    display: none;
+  }
+}

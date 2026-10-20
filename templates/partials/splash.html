@@ -1,0 +1,18 @@
+{# Ganti gambar melalui static/images/splash/splash.png. #}
+<dialog
+  class="splash"
+  id="site-splash"
+  aria-label="Selamat datang di portofolio Yayang Sahidan"
+  data-duration="1800"
+>
+  <img
+    class="splash__image"
+    src="{{ url_for('static', filename='images/karhutla_1.jpeg') }}"
+    alt="Gambar pembuka portofolio Yayang Sahidan"
+    fetchpriority="high"
+  >
+
+  <button class="button splash__skip" type="button">
+    skip
+  </button>
+</dialog>

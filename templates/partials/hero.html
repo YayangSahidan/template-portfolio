@@ -1,0 +1,39 @@
+{# COVER: pembungkus hero dibuka dan ditutup di dalam partial ini. #}
+<section id="cover" class="hero container" aria-labelledby="hero-title">
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <h1 class="hero__title" id="hero-title">
+        <span class="hero__greeting">{{ data.profile.greeting }}</span>
+        <span class="hero__name">
+          {# Cadangkan ukuran nama agar kolom tidak bergeser selama mengetik. #}
+          <span class="hero__name-measure" aria-hidden="true">{{ data.profile.nickname }}</span>
+          <span class="hero__typed" data-typewriter="{{ data.profile.nickname }}">{{ data.profile.nickname }}</span>
+        </span>
+      </h1>
+      <p class="hero__description">{{ data.profile.tagline_left }}</p>
+    </div>
+    <figure class="hero__portrait">
+      <div class="hero__photo-frame">
+        {# Ganti static/images/foto.jpg. Rasio saat ini sekitar 2:3.
+           contain menampilkan foto utuh tanpa overlay di atas wajah. #}
+        {% if assets.photo_exists %}
+        <img class="hero__photo" data-profile-photo src="{{ url_for('static', filename='images/foto.jpg') }}" alt="{{ data.profile.photo_alt }}" width="842" height="1264" fetchpriority="high">
+        {% endif %}
+        <svg class="hero__placeholder" data-photo-fallback viewBox="0 0 300 450" role="img" aria-labelledby="photo-title" {% if assets.photo_exists %}hidden{% endif %}>
+          <title id="photo-title">Siluet pengganti foto {{ data.profile.full_name }}</title>
+          <circle cx="150" cy="145" r="58"/>
+          <path d="M45 365v-35c0-72 44-112 105-112s105 40 105 112v35"/>
+          <path class="hero__placeholder-guide" d="M150 35v360M25 220h250"/>
+        </svg>
+        <span class="hero__photo-note" data-photo-note {% if assets.photo_exists %}hidden{% endif %}>Foto akan ditambahkan</span>
+      </div>
+      <figcaption class="hero__badge"><span aria-hidden="true"></span></span>{{ data.profile.full_name }}</figcaption>
+    </figure>
+    <div class="hero__copy">
+      <p class="hero__label">logika / antarmuka</p>
+      <h2 class="hero__code-title">{{ data.profile.role_right }}</h2>
+      <p class="hero__description">{{ data.profile.tagline_right }}</p>
+    </div>
+    <pre class="hero__code-art" aria-hidden="true">{{ data.profile.code_lines | join('\n') }}</pre>
+  </div>
+</section>

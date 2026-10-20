@@ -1,0 +1,50 @@
+/* Semua aturan navbar diawali nav__ atau site-header. */
+.site-header {
+  position: sticky; top: 0; z-index: var(--z-header);
+  background: var(--color-bg);
+  border-bottom: var(--stroke) solid var(--glass-shine);
+  box-shadow: 0 var(--space-1) var(--space-5) var(--glass-shadow);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header {
+    background: linear-gradient(120deg, var(--glass-shine), var(--glass-fill));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+  }
+}
+.nav { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; min-height: var(--nav-height); gap: var(--space-5); }
+.nav__logo {
+  display: inline-flex; align-items: center; position: relative; overflow: hidden; isolation: isolate;
+  padding: var(--space-1); margin-block: var(--space-2);
+  border: var(--stroke) solid var(--glass-shine); border-radius: var(--radius);
+  background: var(--logo-fill); color: var(--color-ink); text-decoration: none;
+}
+.nav__logo::after {
+  content: ''; position: absolute; inset: -50%; pointer-events: none;
+  background: linear-gradient(110deg, var(--color-transparent) 35%, var(--logo-shine) 50%, var(--color-transparent) 65%);
+  animation: logo-shine var(--logo-duration) ease-in-out infinite;
+}
+.nav__logo-image { height: var(--logo-height); width: auto; }
+.nav__brand-text { font-size: var(--text-name); font-weight: var(--weight-heavy); padding-inline: var(--space-2); }
+.nav__menu { list-style: none; padding: var(--space-0); display: flex; justify-content: center; flex-wrap: wrap; gap: var(--space-5); }
+.nav__menu a, .nav__social a, .nav__social span { display: inline-flex; align-items: center; min-height: var(--space-7); color: var(--color-ink); font-size: var(--text-sm); font-weight: var(--weight-medium); text-decoration: none; }
+.nav__menu a:hover, .nav__social a:hover { color: var(--color-terracotta); }
+.nav__social { display: flex; gap: var(--space-4); }
+.nav__social span { color: var(--color-text-muted); }
+.nav__social-icon {
+  width: var(--space-5);
+  height: var(--space-5);
+  flex-shrink: 0;
+}
+.nav__toggle { min-height: var(--space-7); padding: var(--space-2) var(--space-4); border: var(--stroke) solid var(--color-border); border-radius: var(--radius); color: var(--color-ink); background: var(--color-bg); }
+@keyframes logo-shine { 0%, 25% { transform: translateX(-100%); } 70%, 100% { transform: translateX(100%); } }
+@media (max-width: 850px) {
+  .nav__social { display: none; }
+  .nav { grid-template-columns: auto minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .nav__toggle { grid-column: 2; grid-row: 1; justify-self: end; }
+  .nav__menu { grid-column: 1 / -1; grid-row: 2; padding-bottom: var(--space-4); gap: var(--space-2) var(--space-5); justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) { .nav__logo::after { display: none; } }
+@media print { .site-header { display: none; } }

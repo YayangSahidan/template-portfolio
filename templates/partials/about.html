@@ -1,0 +1,30 @@
+<section id="template" class="section about" aria-labelledby="about-title">
+  <div class="container" id="about">
+    <div class="section__heading">
+      <h2 id="about-title">About Me</h2>
+    </div>
+
+    <div class="about__grid">
+      <!-- Kolom kiri: identitas. -->
+      <div class="about__identity">
+        <h3>Halo, I'm {{ data.profile.nickname }}.</h3>
+        <p>{{ data.profile.campus }}</p>
+        <p>Sistem Informasi · {{ data.profile.cohort }}</p>
+        <p>{{ data.profile.location }}</p>
+      </div>
+
+      <!-- Kolom kanan: deskripsi dengan animasi mengetik. -->
+      <!-- Kolom kanan: jalur kucing dan kotak bio. -->
+      <div class="about__bio-panel">
+        {% include 'partials/cat_runner.html' %}
+
+        <div class="about__box">
+          <p class="about__bio" data-about-typing>
+            <span class="about__bio-reserve">{{ data.profile.bio }}</span>
+            <span class="about__bio-typed" aria-hidden="true" hidden></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

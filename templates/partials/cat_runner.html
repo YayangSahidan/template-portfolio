@@ -1,0 +1,45 @@
+<div class="cat-runner" aria-hidden="true">
+  <div class="cat-runner__travel">
+    <div class="cat-runner__direction">
+
+      <svg class="cat-runner__cat"
+           viewBox="0 0 120 80"
+           fill="currentColor"
+           focusable="false">
+
+        <!-- Ekor. -->
+        <path d="M34 40C10 43 7 17 20 15"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="6"
+              stroke-linecap="round"/>
+
+        <!-- Kaki bergantian. -->
+        <g fill="none" stroke="currentColor"
+           stroke-width="6" stroke-linecap="round"
+           stroke-linejoin="round">
+          <path class="cat-runner__leg"
+                d="M44 49L35 65H45"/>
+          <path class="cat-runner__leg cat-runner__leg--alternate"
+                d="M53 50L60 67H69"/>
+          <path class="cat-runner__leg cat-runner__leg--alternate"
+                d="M73 48L66 65H76"/>
+          <path class="cat-runner__leg"
+                d="M81 46L89 64H99"/>
+        </g>
+
+        <!-- Badan, telinga, dan kepala. -->
+        <ellipse cx="58" cy="42" rx="27" ry="14"/>
+        <path d="M79 23L78 6L91 16L102 5L105 27Z"/>
+        <circle cx="91" cy="29" r="15"/>
+        <circle cx="106" cy="32" r="3"/>
+
+        <!-- Mata. -->
+        <ellipse class="cat-runner__eye"
+                 cx="98" cy="26" rx="3" ry="4"/>
+        <ellipse cx="99" cy="26" rx="1" ry="3"/>
+      </svg>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+/* Hanya mengatur cover. Jangan menaruh aturan navbar/section lain di sini. */
+.hero { padding-bottom: var(--space-7); }
+.hero__grid {
+  position: relative; display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--photo-width) minmax(0, 1fr);
+  gap: var(--space-7); align-items: center;
+  min-height: var(--hero-height); padding-block: var(--space-7);
+}
+.hero__grid > * { min-width: 0; }
+.hero__copy { position: relative; z-index: 1; background: var(--color-bg); }
+.hero__title { font-size: var(--text-hero); font-weight: var(--weight-heavy); letter-spacing: var(--tracking-heading); }
+.hero__greeting { display: block; font-size: var(--text-greeting); font-weight: var(--weight-medium); letter-spacing: normal; margin-bottom: var(--space-3); color: var(--color-text-muted); }
+.hero__name { display: block; position: relative; width: max-content; max-width: 100%; }
+.hero__name-measure { visibility: hidden; white-space: nowrap; }
+.hero__typed { position: absolute; top: 0; left: 0; white-space: nowrap; }
+.hero__typed.is-typing::after { content: ''; display: inline-block; width: var(--stroke-thick); height: .8em; margin-left: var(--space-1); background: var(--color-terracotta); animation: hero-cursor var(--cursor-duration) steps(2, end) infinite; }
+.hero__description { max-width: 32ch; margin-top: var(--space-5); color: var(--color-text-muted); }
+.hero__label { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--tracking-label); color: var(--color-terracotta); margin-bottom: var(--space-3); }
+.hero__code-title { font-size: var(--text-hero); font-weight: var(--weight-heavy); letter-spacing: var(--tracking-heading); white-space: nowrap; }
+.hero__portrait { position: relative; isolation: isolate; width: 100%; }
+.hero__portrait::before { content: ''; position: absolute; inset: var(--space-4) calc(-1 * var(--space-3)) var(--space-6); z-index: -1; background: url('../images/pattern/poleng.svg') center / var(--space-8); border-radius: var(--radius); transform: rotate(-5deg); }
+.hero__photo-frame { position: relative; overflow: hidden; aspect-ratio: var(--photo-ratio); border: var(--stroke) solid var(--color-border); border-radius: var(--radius-pill) var(--radius-pill) var(--radius) var(--radius); background: var(--color-surface); }
+.hero__photo { display: block; width: 100%; height: 100%; object-fit: contain; }
+.hero__placeholder { width: 100%; height: 100%; fill: none; stroke: var(--color-text-muted); stroke-width: var(--stroke-thick); }
+.hero__placeholder-guide { stroke-dasharray: 4 8; opacity: .4; }
+.hero__photo-note { position: absolute; bottom: var(--space-5); left: var(--space-4); right: var(--space-4); text-align: center; color: var(--color-text-muted); font-size: var(--text-xs); }
+.hero__badge { display: flex; gap: var(--space-2); align-items: center; justify-content: center; padding-top: var(--space-3); font: var(--text-xs) var(--font-mono); background: var(--color-bg); }
+.hero__badge span { width: var(--space-4); height: var(--space-4); background: url('../images/pattern/poleng.svg') center / cover; border: var(--stroke) solid var(--color-ink); }
+.hero__code-art { position: absolute; top: var(--space-6); right: 0; width: 45%; overflow: hidden; opacity: .06; font-family: var(--font-mono); font-size: var(--text-sm); pointer-events: none; z-index: 0; }
+.hero__bottom { display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); padding-top: var(--space-6); border-top: var(--stroke) solid var(--color-border); background: var(--color-bg); }
+.hero__full-name { font-size: var(--text-name); font-weight: var(--weight-heavy); letter-spacing: var(--tracking-heading); line-height: var(--leading-heading); }
+@keyframes hero-cursor { to { opacity: 0; } }
+@media (max-width: 1000px) { .hero__grid { gap: var(--space-5); } }
+@media (max-width: 760px) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-7); min-height: auto; }
+  .hero__portrait { width: min(100%, var(--photo-width)); justify-self: center; }
+  .hero__description { max-width: 48ch; }
+  .hero__bottom { flex-direction: column; align-items: flex-start; }
+  .hero__code-art { top: auto; bottom: var(--space-5); width: 65%; }
+}
+@media (prefers-reduced-motion: reduce) { .hero__typed.is-typing::after { display: none; } }
+@media print { .hero { break-after: page; } .hero__bottom .button { display: none; } }

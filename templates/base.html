@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ data.profile.bio }}" />
+    <title>{% block title %}{{ data.profile.full_name }} | Portofolio Digital Budaya{% endblock %}</title>
+
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet" />
+    {# Urutan CSS: token, dasar, lalu bagian halaman. #} {% for stylesheet in ['tokens', 'base', 'navbar', 'hero', 'sections', 'cat'] %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/' ~ stylesheet ~ '.css') }}" />
+    {% endfor %} {% for script in ['navbar', 'hero', 'about', 'reveal', 'contact'] %}
+    <script type="module" src="{{ url_for('static', filename='js/' ~ script ~ '.js') }}"></script>
+    {% endfor %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/splash.css') }}" />
+
+    <script type="module" src="{{ url_for('static', filename='js/splash.js') }}"></script>
+  </head>
+  <body class="page" data-pattern="{{ assets.pattern_kind }}">
+    {% include 'partials/splash.html' %}
+    <a class="skip-link" href="#mainContent">Lewati navigasi</a>
+    {% include 'partials/navbar.html' %}
+    <main id="mainContent">{% block content %}{% endblock %}</main>
+    {% include 'partials/footer.html' %}
+  </body>
+</html>

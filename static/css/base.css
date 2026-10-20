@@ -1,0 +1,74 @@
+/* Aturan dasar saja. Tampilan komponen ada pada file masing-masing. */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + var(--space-5)); }
+body, h1, h2, h3, h4, p, figure, pre, ul, ol, dl, dd { margin: var(--space-0); }
+body {
+  isolation: isolate;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+}
+/* Opacity hanya mengenai gambar latar, bukan teks di halaman. */
+.page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-pattern);
+  background: url('../images/pattern/angklung.svg') right center / var(--pattern-size) auto no-repeat;
+  opacity: var(--pattern-opacity);
+  pointer-events: none;
+}
+.page[data-pattern='photo']::before { background-image: url('../images/angklung.png'); }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+button, input, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: var(--color-transparent); }
+button { cursor: pointer; }
+a { color: var(--color-terracotta); text-underline-offset: var(--space-1); }
+:focus-visible { outline: var(--stroke-thick) solid var(--color-terracotta); outline-offset: var(--focus-offset); }
+[hidden] { display: none !important; }
+h1, h2, h3, h4 { line-height: var(--leading-heading); }
+h2 { font-size: var(--text-section); letter-spacing: var(--tracking-heading); }
+h3 { font-size: var(--text-lg); }
+p + p { margin-top: var(--space-3); }
+small { font-size: var(--text-xs); }
+.container { width: calc(100% - var(--space-8)); max-width: var(--max-width); margin-inline: auto; }
+.muted { color: var(--color-text-muted); }
+.mono { font-family: var(--font-mono); }
+.skip-link { position: fixed; top: var(--space-2); left: var(--space-2); z-index: var(--z-skip); padding: var(--space-3); background: var(--color-bg); transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
+.button {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-4);
+  min-height: var(--space-7); padding: var(--space-3) var(--space-5);
+  border: var(--stroke) solid var(--color-ink); border-radius: var(--radius-pill);
+  background: var(--color-ink); color: var(--color-bg); text-decoration: none;
+  font-weight: var(--weight-medium); transition: background var(--transition);
+}
+.button:hover { background: var(--color-terracotta); border-color: var(--color-terracotta); }
+.button:disabled { cursor: default; opacity: .65; }
+.section { padding-block: var(--space-8); border-top: var(--stroke) solid var(--color-border); background: var(--color-bg); }
+.section__heading { margin-bottom: var(--space-7); max-width: 52rem; }
+.section__heading p + h2 { margin-top: var(--space-3); }
+.section__heading h2 + p { margin-top: var(--space-4); color: var(--color-text-muted); }
+.section__tag { color: var(--color-terracotta); font: var(--text-xs) var(--font-mono); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+/* Konten tetap terlihat tanpa JS. JS baru menambah is-ready jika didukung. */
+.reveal { transition: opacity var(--reveal-duration), transform var(--reveal-duration); }
+.reveal.is-ready { opacity: 0; transform: translateY(var(--space-4)); }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (max-width: 760px) {
+  .container { width: calc(100% - var(--space-6)); }
+  .section { padding-block: var(--space-7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal.is-ready { opacity: 1; transform: none; }
+}
+@media print {
+  .page::before, .skip-link { display: none; }
+  .reveal.is-ready { opacity: 1; transform: none; }
+  .container { width: 100%; }
+}

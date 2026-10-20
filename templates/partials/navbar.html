@@ -1,0 +1,23 @@
+{% from 'partials/social_icons.html' import social_icon %}
+<header class="site-header" data-navbar>
+  <nav class="nav container" aria-label="Navigasi utama">
+    <a class="nav__logo" href="#cover" aria-label="{{ data.profile.full_name }} · beranda">
+      {% if assets.logo_exists %}
+      <img class="nav__logo-image" src="{{ url_for('static', filename='images/logoyayang_sahidan.png') }}" alt="Logo {{ data.profile.full_name }}" width="1230" height="1278" />
+      {% endif %}
+    </a>
+    <ul class="nav__menu" id="navMenu">
+      {% for item in data.navigation %}
+      <li><a href="#{{ item.id }}">{{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+    <div class="nav__social" aria-label="Media sosial">
+      {% for name, field in [ ('GitHub', 'github'), ('LinkedIn', 'linkedin'), ('Instagram', 'instagram') ] %} {% set link = data.profile[field] | web_url %} {% if link %}
+      <a href="{{ link }}" target="_blank" rel="noopener noreferrer" aria-label="{{ name }} (tab baru)"> {{ social_icon(field) }} </a>
+      {% else %}
+      <span title="Tautan {{ name }} belum diisi" role="img" aria-label="{{ name }} belum diisi"> {{ social_icon(field) }} </span>
+      {% endif %} {% endfor %}
+    </div>
+    <button class="nav__toggle" type="button" aria-controls="navMenu" aria-expanded="false" hidden>Menu</button>
+  </nav>
+</header>
