@@ -1,18 +1,6 @@
-{# Ganti gambar melalui static/images/splash/splash.png. #}
-<dialog
-  class="splash"
-  id="site-splash"
-  aria-label="Selamat datang di portofolio Yayang Sahidan"
-  data-duration="1800"
->
-  <img
-    class="splash__image"
-    src="{{ url_for('static', filename='images/karhutla_1.jpeg') }}"
-    alt="Gambar pembuka portofolio Yayang Sahidan"
-    fetchpriority="high"
-  >
+{# Ganti video melalui static/videos/opening.mp4. #}
+<dialog class="splash" id="site-splash" aria-label="Video pembuka portofolio Yayang Sahidan" data-timeout="15000">
+  <video class="splash__video" src="{{ url_for('static', filename='videos/map.mp4') }}" autoplay muted playsinline preload="auto"></video>
 
-  <button class="button splash__skip" type="button">
-    skip
-  </button>
+  <button class="button splash__skip" type="button">Skip</button>
 </dialog>

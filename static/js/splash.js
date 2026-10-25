@@ -1,24 +1,23 @@
 const splash = document.querySelector('#site-splash');
+const video = splash?.querySelector('.splash__video');
+const skip = splash?.querySelector('.splash__skip');
 
-if (splash && typeof splash.showModal === 'function') {
-  const image = splash.querySelector('.splash__image');
-  const skip = splash.querySelector('.splash__skip');
+if (splash && video && typeof splash.showModal === 'function') {
+  const configuredTimeout = Number(splash.dataset.timeout);
+  const timeout = Number.isFinite(configuredTimeout)
+    ? Math.min(Math.max(configuredTimeout, 1000), 30000)
+    : 15000;
 
-  const configuredDuration = Number(splash.dataset.duration);
-  const duration = Number.isFinite(configuredDuration)
-    ? Math.min(Math.max(configuredDuration, 500), 5000)
-    : 1800;
-
-  let timer;
+  let safetyTimer;
   let fadeTimer;
 
   function closeSplash() {
-    clearTimeout(timer);
-
     if (!splash.open || splash.classList.contains('is-closing')) {
       return;
     }
 
+    clearTimeout(safetyTimer);
+    video.pause();
     splash.classList.add('is-closing');
 
     fadeTimer = setTimeout(() => {
@@ -28,19 +27,29 @@ if (splash && typeof splash.showModal === 'function') {
     }, 250);
   }
 
+  // Tutup setelah video selesai, dilewati, atau gagal dimuat.
+  video.addEventListener('ended', closeSplash);
+  video.addEventListener('error', closeSplash);
   skip?.addEventListener('click', closeSplash);
 
-  // Jika gambar gagal dimuat, halaman tetap bisa diakses.
-  image?.addEventListener('error', closeSplash, { once: true });
-
+  // Bersihkan pemutaran dan timer, termasuk ketika menekan Escape.
   splash.addEventListener('close', () => {
-    clearTimeout(timer);
+    clearTimeout(safetyTimer);
     clearTimeout(fadeTimer);
+    video.pause();
   });
 
-  // Jangan tampilkan splash jika gambar sudah diketahui gagal dimuat.
-  if (image && (!image.complete || image.naturalWidth > 0)) {
-    splash.showModal();
-    timer = setTimeout(closeSplash, duration);
+  splash.showModal();
+
+  // Batas tunggu agar splash tidak menghalangi halaman terlalu lama.
+  safetyTimer = setTimeout(closeSplash, timeout);
+
+  video.muted = true;
+
+  if (video.error) {
+    closeSplash();
+  } else {
+    // Jika autoplay ditolak, langsung buka halaman utama.
+    video.play().catch(closeSplash);
   }
 }
